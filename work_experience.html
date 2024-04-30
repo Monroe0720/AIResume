@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Work Experience</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        /* Page styling */
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: white;
+        }
+
+        /* Two-column layout */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        /* Left side styling */
+        .left-side {
+            width: 50%;
+        }
+
+        /* Right side styling */
+        .right-side {
+            width: 50%;
+        }
+
+        /* Textarea styling */
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            color: black;
+        }
+
+        /* Navigation menu */
+        .menu {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            list-style-type: none;
+        }
+
+        .menu li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* AI suggestions styling */
+        .suggestions {
+            margin-top: 20px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Menu -->
+    <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="contact_information.html">Contact Information</a></li>
+        <li><a href="objective.html">Objectives</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+
+    <!-- Container for left and right side -->
+    <div class="container">
+        <!-- Left Side: Title and Paragraph -->
+        <div class="left-side">
+            <h1>Let's get to know you. What's your Career Objective?</h1>
+            <p>This is a phrase or sentence that highlights your intentions and accomplishments. Be specific enough to give an element of career direction to your resume. Tailor this to each organization and position. State clearly whether you are looking for an internship, part-time, or full-time job.</p>
+        </div>
+
+        <!-- Right Side: Text Box and AI Suggestions -->
+        <div class="right-side">
+            <textarea id="career-objective" placeholder="Enter your career objective..."></textarea>
+            <div class="suggestions" id="ai-suggestions">
+                <!-- AI suggestions will be displayed here -->
+            </div>
+            <!-- Speech-to-text and text-to-speech buttons -->
+            <button id="start-voice-input">Start Voice Input</button>
+            <button id="text-to-speech">Listen</button>
+        </div>
+    </div>
+
+    <!-- JavaScript for AI suggestions, speech recognition, and text-to-speech -->
+    <script>
+        // Example function to handle AI suggestions (you'll need to implement this)
+        function getAISuggestions() {
+            const objectiveText = document.getElementById('career-objective').value;
+            // Perform AI processing here (e.g., call an API)
+            document.getElementById('ai-suggestions').innerText = "AI suggestions go here";
+        }
+
+        // Add an event listener to handle changes in the textarea
+        document.getElementById('career-objective').addEventListener('input', getAISuggestions);
+
+        // Speech recognition and synthesis
+        function startVoiceInput() {
+            const recognition = new webkitSpeechRecognition();
+            recognition.interimResults = true;
+
+            recognition.onresult = function(event) {
+                const last = event.results.length - 1;
+                const transcript = event.results[last][0].transcript;
+                document.getElementById('career-objective').value = transcript;
+                getAISuggestions();
+            };
+
+            recognition.start();
+        }
+
+        document.getElementById('start-voice-input').addEventListener('click', startVoiceInput);
+
+        function textToSpeech() {
+            const speech = new SpeechSynthesisUtterance(document.getElementById('career-objective').value);
+            window.speechSynthesis.speak(speech);
+        }
+
+        document.getElementById('text-to-speech').addEventListener('click', textToSpeech);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Skills</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        /* Page styling */
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: white;
+        }
+
+        /* Two-column layout */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        /* Left side styling */
+        .left-side {
+            width: 50%;
+        }
+
+        /* Right side styling */
+        .right-side {
+            width: 50%;
+        }
+
+        /* Textarea styling */
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        /* Navigation menu */
+        .menu {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            list-style-type: none;
+        }
+
+        .menu li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* AI suggestions styling */
+        .suggestions {
+            margin-top: 20px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Menu -->
+    <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="contact_information.html">Contact Information</li>
+        <li><a href="objective.html">Objectives</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="work_experience.html">Work Experience</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+
+    <!-- Container for left and right side -->
+    <div class="container">
+        <!-- Left Side: Title and Paragraph -->
+        <div class="left-side">
+            <h1>Show Me Your Skills</h1>
+            <p>Skills highlight your qualifications and expertise relevant to the job you're applying for. They give hiring managers a quick overview of your capabilities and suitability for the position.</p>
+            <p>Soft skills: (being responsible, loyal, hardworking, energetic, outgoing.)</p>
+            <p>Hard skills: (research and writing, Microsoft Word 98, Microsoft Publisher 2000, public speaking.)</p>
+        </div>
+
+        <!-- Right Side: Text Box and AI Suggestions -->
+        <div class="right-side">
+            <textarea id="skills" placeholder="Enter your skills..."></textarea>
+            <div class="suggestions" id="ai-suggestions">
+                <!-- AI suggestions will be displayed here -->
+            </div>
+            <!-- Speech-to-text and text-to-speech buttons -->
+            <button id="start-voice-input">Start Voice Input</button>
+            <button id="text-to-speech">Listen</button>
+        </div>
+    </div>
+
+    <!-- JavaScript for AI suggestions, speech recognition, and text-to-speech -->
+    <script>
+        // Function to handle AI suggestions
+        function getAISuggestions() {
+            const skillsText = document.getElementById('skills').value;
+            // Perform AI processing here (e.g., call an API)
+            document.getElementById('ai-suggestions').innerText = "AI suggestions go here";
+        }
+
+        // Event listener for changes in the textarea
+        document.getElementById('skills').addEventListener('input', getAISuggestions);
+
+        // Speech recognition function
+        function startVoiceInput() {
+            const recognition = new webkitSpeechRecognition();
+            recognition.interimResults = true;
+
+            recognition.onresult = function(event) {
+                const last = event.results.length - 1;
+                const transcript = event.results[last][0].transcript;
+                document.getElementById('skills').value = transcript;
+                getAISuggestions();
+            };
+
+            recognition.start();
+        }
+
+        document.getElementById('start-voice-input').addEventListener('click', startVoiceInput);
+
+        // Text-to-speech function
+        function textToSpeech() {
+            const speech = new SpeechSynthesisUtterance(document.getElementById('skills').value);
+            window.speechSynthesis.speak(speech);
+        }
+
+        document.getElementById('text-to-speech').addEventListener('click', textToSpeech);
+    </script>
+</body>
+
+</html>

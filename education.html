@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Education</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        /* Page styling */
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: white;
+        }
+
+        /* Two-column layout */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        /* Left side styling */
+        .left-side {
+            width: 50%;
+        }
+
+        /* Right side styling */
+        .right-side {
+            width: 50%;
+        }
+
+        /* Textarea styling */
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        /* Navigation menu */
+        .menu {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            list-style-type: none;
+        }
+
+        .menu li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* AI suggestions styling */
+        .suggestions {
+            margin-top: 20px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Menu -->
+    <ul class="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="contact_information.html">Contact Information</a></li>
+        <li><a href="objective.html">Objectives</a></li>
+        <li><a href="work_experience.html">Work Experience</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+
+    <!-- Container for left and right side -->
+    <div class="container">
+        <!-- Left Side: Title and Paragraph -->
+        <div class="left-side">
+            <h1>Let Us Know Your Education</h1>
+            <p>List the highest level of education first. Include the name of the college, degree, major, minor, and month and year of your anticipated graduation.</p>
+            <p>Tips:</p>
+            <ul>
+                <li>School name</li>
+                <li>Degree obtained</li>
+                <li>Location</li>
+                <li>Dates attended or graduation date</li>
+                <li>Field of study (major and minors)</li>
+                <li>Honors, achievements, relevant coursework, extracurricular activities, or study abroad programs.</li>
+            </ul>
+        </div>
+
+        <!-- Right Side: Text Box and AI Suggestions -->
+        <div class="right-side">
+            <textarea id="education-details" placeholder="Enter your education details..."></textarea>
+            <div class="suggestions" id="ai-suggestions">
+                <!-- AI suggestions will be displayed here -->
+            </div>
+            <!-- Speech-to-text and text-to-speech buttons -->
+            <button id="start-voice-input">Start Voice Input</button>
+            <button id="text-to-speech">Listen</button>
+        </div>
+    </div>
+
+    <!-- JavaScript for AI suggestions, speech recognition, and text-to-speech -->
+    <script>
+        // Function to handle AI suggestions
+        function getAISuggestions() {
+            const educationText = document.getElementById('education-details').value;
+            // Perform AI processing here (e.g., call an API)
+            document.getElementById('ai-suggestions').innerText = "AI suggestions go here";
+        }
+
+        // Event listener for changes in the textarea
+        document.getElementById('education-details').addEventListener('input', getAISuggestions);
+
+        // Speech recognition function
+        function startVoiceInput() {
+            const recognition = new webkitSpeechRecognition();
+            recognition.interimResults = true;
+
+            recognition.onresult = function(event) {
+                const last = event.results.length - 1;
+                const transcript = event.results[last][0].transcript;
+                document.getElementById('education-details').value = transcript;
+                getAISuggestions();
+            };
+
+            recognition.start();
+        }
+
+        document.getElementById('start-voice-input').addEventListener('click', startVoiceInput);
+
+        // Text-to-speech function
+        function textToSpeech() {
+            const speech = new SpeechSynthesisUtterance(document.getElementById('education-details').value);
+            window.speechSynthesis.speak(speech);
+        }
+
+        document.getElementById('text-to-speech').addEventListener('click', textToSpeech);
+    </script>
+</body>
+
+</html>
